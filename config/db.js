@@ -11,10 +11,11 @@ const query = (query) => {
   return new Promise((resolve,reject) => {
     connection.query(query, function (error, results, fields) {
        if (error) reject(error);
-       resolve(results[0])
+       if(results && results[0] !== undefined) resolve(results[0])
+       else resolve(results)
       });
-      connection.end();
-  });
+    });
+    connection.end();
  }
 
 module.exports = { query };
