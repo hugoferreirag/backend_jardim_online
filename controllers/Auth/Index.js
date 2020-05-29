@@ -17,10 +17,10 @@ const ControllerFunctions = {
       const isMatch = bcrypt.compareSync(payload.password, user.password)
       if (!isMatch) throw { Status: 401, MessageError: 'Invalid Password' };
 
-      const idUser = {id: user.id};
-      const token = jwt.encode(idUser, cfg.jwtSecret);
+      const userData = {id: user.id, email: user.email, fullName: user.fullName};
+      const token = jwt.encode(userData, cfg.jwtSecret);
 
-      return { Data: { token, email: user.email, name: user.fullname }, Status: 200 };
+      return { Data: { token, userData }, Status: 200 };
   }
 }
 
